@@ -5,13 +5,63 @@ date: "29/9/2017"
 output: html_document
 ---
 
+
+
 ##Exercise 1
 
+Git permet de garder l'historique de changements effectués sur tous les documents du même projet, faits par toute personne autorisée.
 
 ##Exercise 2
 
+```{r}
+possible_outcomes <- c(0, 1, 2, 3, 4, 5)
+#outcome_probabilities <- c(1, 0, 0, 0, 0, 0)
+outcome_probabilities <- c(0.1, 0.5, 0.2, 0.1, 0.05, 0.05)
+n_data_points <- 400
+set.seed(1)
+fake_data_points <- sample(possible_outcomes,
+                           n_data_points,
+                           replace=T,
+                           prob=outcome_probabilities)
+set.seed(NULL)
+fake_data_set <- tibble::data_frame(`Fake measurement`=fake_data_points)
+```
+
+```{r}
+ggplot2::ggplot(fake_data_set, ggplot2::aes(x=`Fake measurement`)) +
+ggplot2::geom_histogram(bins=5, colour="black", fill="lightgrey")
+```
+
+* Statement 1 crée un vecteur de nombres appelé possible_outcomes : ceux sont les nombres qu'on attend observé dans le set de fake data.
+
+* Statement 2 crée un autre vecteur de nombres, que cette fois-ci représentent des probabilités, donc leur somme est 1. Le vecteur est appelé outcome_probabilities et je dirai que chaque probabilité sera associée à un des nombres du vecteur possible_outcomes, en ordre. On attendrait alors trouver environ un 50% de 1 sur les fake_data_points. Effectivement, quand on print cette variable, on observe surtout des "1" et presque aucun "5" (5% de probabilité). Si on change le vecteur de probabilités à c(1, 0, 0, 0, 0, 0), le fake_data_points généré à seulement des 0.
+
+* Statement 3 garde dans la variable n_data_points le nombre de points qu'on va générer dans le statement suivant. Si on fait un print du set "fake_data_set", on confirme que la fonction génére 400 points.
+
+* Statement 4 : selon http://rfunction.com/archives/62 , set.seed(seed) permet de réproduire une même expérience aléatoire. Je ne comprends pas à quoi fait référence "seed" ni pourquoi on l'utilise dans ce morceau de code.
+
+* Statement 5 assigne à la variable fake_data_points un vecteur généré à partir de la fonction "sample", qui prend 4 arguments : un vecteur des nombres possibles, la longueur du vecteur généré, "replace" set "True" (si on le change a False, la sample ne peut pas avoir une taille plus grande que celle de la population, "possible_outcomes" dans notre cas) et la probabilité de sortir pour chaque nombre possible.
+
+* Statement 6 assigne à la variable fake_data_set le résultat de "tibble::data_frame(`Fake measurement`=fake_data_points)". Tibble est un package qui sert à créer des data frames et, dans ce cas, il transforme le data_frame crée à partir des fake data points générés en un objet tibble.
+
 
 ##Exercise 3
+
+
+a. Les histogrammes représentent pour les 50 individus qui conforment la population de chaque espèce de Iris (versicolor et virginica), grouppés selon la largeur du Sepal. Par exemple, dans le deuxième histogramme, on trouve 12 individus de la population des virginica avec une sepal width de 3.0 et aucun avec 2.0. Dans la population de versicolor, on trouve 1 indivuds avec 2.0 et 8 avec 3.0.
+
+
+```{r}
+iris_groups23 <- dplyr::filter(iris, Species %in% c("versicolor", "virginica"))
+ggplot2::ggplot(iris_groups23, ggplot2::aes(x=Sepal.Width)) +
+ggplot2::geom_histogram(colour="black", fill="lightgrey", binwidth=0.1) + ggplot2::facet_grid(Species ~ .)
+```
+
+Histogramme pour un subset de versicolor :
+
+```{r, out.width='50%'}
+knitr::include_graphics("histogramme.png")
+```
 
 
 ##Exercise 4
