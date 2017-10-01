@@ -1,0 +1,43 @@
+---
+title: "My first Markdown Document"
+author: "I. H."
+date: "29/9/2017"
+output: html_document
+---
+
+This is my first Markdown document.
+Let's load some data.
+
+```{r}
+library(datasets)
+data("airquality")
+summary(airquality)
+```
+
+Here's a pairs plot of the data
+
+```{r}
+pairs(airquality)
+```
+
+Here's a regression model of ozone on some predictors
+
+```{r}
+fit <- lm(Ozone ~ Solar.R + Wind + Temp, data = airquality)
+summary(fit)
+```
+
+Here's an unordered list
+
+* item one
+* item 2
+
+Ordered list
+
+1. item one
+
+2. item dos
+
+
+
+
