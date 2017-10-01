@@ -100,3 +100,30 @@ ggplot2::xlim(c(-1,1))
 
 b. Il me semble que l'hypothèse B est plus probable : permit nom et permit verbe ne sont pas égales en termes d'accentuation. Si l'on regarde les deux premiers histogrammes, on constate des patrons complètement différent pour chaque type de mot (35 individus de 46 ont l'accent dans la première syllabe pour le nom et seulement 1/46 pour le verbe). Les samples pourraient être extraits d'une population comme la reflètée en III, mais c'est très peu probable.
 
+##Exercise 5
+
+
+```{r}
+library(magrittr)
+set.seed(1)
+ver_balanced <- languageR::ver %>%
+  dplyr::group_by(SemanticClass) %>%
+  dplyr::sample_n(198)
+set.seed(NULL)
+```
+```{r}
+ggplot2::ggplot(ver_balanced, ggplot2::aes(x=Frequency)) +
+  ggplot2::geom_histogram(fill="lightgrey", colour="black", binwidth=250) +
+ggplot2::facet_grid(SemanticClass ~ .)
+```
+
+
+a. Il y a deux types de calcule dans cette data : d'une part, on compte la fréquence de 198 verbs de chaque groupe dans un corpus; d'une autre part, on compte combien de verbes ont une fréquence de 0, 1, etc. pour remplir l'histogramme. 
+
+b. Cette question n'est pas répondu par les histogrammes car on travaille sur des samples qui peuvent représenter ou pas la poblation de laquelle elles sont extraites. 
+
+Si l'hypothèse A était vraie, cela voudrait dire que les verbes opaques et transparent ne présentent pas de différences à niveau de leur fréquence : avec une sample suffisament représentative de chaque groupe on trouveras des patrons très similaires, ce qui n'est pas le cas pour les histogrammes qu'on a, soit parce que l'hypopthèse est fausse, soit parce que les samples ne sont pas suffisament représentatifs.
+
+Si l'hypothèse B était vraie, les deux groupes de verbes ne seraient pas égales par rapport à leur fréquence : les histogrammes qu'on a pourraient être représentatifs de la population delaquelle chaque sample est extrait. Les patrons des deux histogrammes ne sont pas égaux, soit parce que les samples sont représentatifs de la population, soit parce que l'hypothèse est fausse et les samples ne sont pas représentatifs.
+
+c. Si l'on considère que les samples sont représentatifs et étant donné que les histogrammes présentent des patrons différents, l'hypothèse B serait vraie : les verbes opaques seront plus fréquents que les verbes transparents. Environ 80 verbes opaques (40% du total) apparaissent moins de 250 fois dans le corpus, tandis que plus de 150 des verbes transparents apparaissent moins de 250 fois (le double). De plus, il y a des verbes opaques qui apparaissent plus de 10.000 fois, mais aucun verbe transparent apparait plus de 2500 fois. En regardant ces données, l'hypothèse B est plus probable que la A. 
