@@ -9,7 +9,7 @@ output: html_document
 
 ##Exercise 1
 
-Git permet de garder l'historique de changements effectués sur tous les documents du même projet, faits par toute personne autorisée.
+Git permet de garder l'historique des changements effectués sur tous les documents du même projet, faits par toute personne qui y a accés.
 
 ##Exercise 2
 
@@ -38,7 +38,8 @@ ggplot2::geom_histogram(bins=5, colour="black", fill="lightgrey")
 
 * Statement 3 garde dans la variable n_data_points le nombre de points qu'on va générer dans le statement suivant. Si on fait un print du set "fake_data_set", on confirme que la fonction génére 400 points.
 
-* Statement 4 : selon http://rfunction.com/archives/62 , set.seed(seed) permet de réproduire une même expérience aléatoire. Je ne comprends pas à quoi fait référence "seed" ni pourquoi on l'utilise dans ce morceau de code.
+* Statement 4 : selon http://rfunction.com/archives/62 , set.seed(seed) permet de réproduire une même expérience aléatoire. Je comprends que les nombres générés par random ne sont pas vraiment aléatoires : si l'on connait la seed, on peut re-générér la même séquence de nombres. Si on set la seed à 1, le programme va générer toujours la même combinaison de nombres aléatoires (avec les mêmes arguments pour la fonction "sample"). J'ai testé le code avec la seed = 1, et je constate que le programme génére les mêmes nombres (si n_data_points = 2, alors fake_data_points =
+ [1] 1 1 2 5 1 0 5 2 2 1). J'ai changé la seed = 2, et les nombres changent (si n_data_points = 1, alors fake_data_points = [1] 1 3 2 1 5 5 1 0 1 2).
 
 * Statement 5 assigne à la variable fake_data_points un vecteur généré à partir de la fonction "sample", qui prend 4 arguments : un vecteur des nombres possibles, la longueur du vecteur généré, "replace" set "True" (si on le change a False, la sample ne peut pas avoir une taille plus grande que celle de la population, "possible_outcomes" dans notre cas) et la probabilité de sortir pour chaque nombre possible.
 
@@ -48,7 +49,7 @@ ggplot2::geom_histogram(bins=5, colour="black", fill="lightgrey")
 ##Exercise 3
 
 
-a. Les histogrammes représentent pour les 50 individus qui conforment la population de chaque espèce de Iris (versicolor et virginica), grouppés selon la largeur du Sepal. Par exemple, dans le deuxième histogramme, on trouve 12 individus de la population des virginica avec une sepal width de 3.0 et aucun avec 2.0. Dans la population de versicolor, on trouve 1 indivuds avec 2.0 et 8 avec 3.0.
+a. Les histogrammes représentent pour les 50 individus qui conforment la population de chaque espèce de Iris (versicolor et virginica), grouppés selon la largeur du Sepal. Par exemple, dans le deuxième histogramme (II), on trouve 12 individus de la population des virginica avec une sepal width de 3.0 et aucun avec 2.0. Dans la population de versicolor (histogramme I), on trouve 1 indivuds avec 2.0 et 8 avec 3.0.
 
 
 ```{r}
@@ -63,6 +64,39 @@ Histogramme pour un subset de versicolor :
 knitr::include_graphics("histogramme.png")
 ```
 
+b. Si l'on somme les bins de 2.0, 2.2, 2.9 et 3.0 des deux espèces, on a 1+0=1, 2+1=3, 7+2=9, 8+12=20. On peut constater que le suivant histogramme (III) est le résultat de la somme des deux précédents. 
+
+```{r}
+ggplot2::ggplot(iris_groups23, ggplot2::aes(x=Sepal.Width)) + ggplot2::geom_histogram(colour="black", fill="lightgrey", binwidth=0.1)
+```
+
+c. L'hypothèse A postule que virginica et versicolor sont égales en termes de sepal width. Les populations desquelles les samples sont extraites ont une sepal width égale. C'est à dire que si on prend une sample diffèrente ou plus large (plus réprésentaive) de n'importe quelle des deux espèces on obtiendrait un histogramme similaire au III. I et II sont diffèrents parce que les samples ne son pas représentatives de la population.
+L'hypothèse B postule que les deux espèces sont différentes en termes de sepal width. Les populations desquelles les samples sont extraites ont une sepal width différente. Si l'on prend une sample diffèrente pour chacune, on obtiendrait un histogramme similaire à celui de la propre espèce (I ou II) si les samples actuelles sont réprésentatives. III ne répresenterait plus que la somme de I et II.
+
+d. On pourrait postuler que l'hypothèse A est correcte. Si l'on regarde les histogrammes I et II, on peut constater une certaine similarité entre les valeurs où se concentrent las plupart des individus (entre 2.5 et 3.3) et la plus petite partie (le reste). On pourrait penser que le fait qu'il y ait uniquement 2 individus avec 2.9 dans II n'est pas représentatif de la population. L'histogramme III, qui représente la somme de I et II, a une forme similaire à celle d'une distribution normale, ce qui peut nous indiquer qu'effectivement les deux espèces sont égales en termes de sepal width.
 
 ##Exercise 4
+
+a. Les histogrammes ne nous permettent pas de dire laquelle des deux hypothèses est vraie car ça pourrait être le cas que les samples qu'on a obtenu pour permit nom ou permit verbe ne soient pas représentatives de la population totale. L'hypothèse A postule que le verbe et le nom sont égales par rapport à leur accent : si c'est le cas, les histogrammes des samples qu'on a (composée de 46 individus chacune) ne représentent pas correctement la population; le troisième histogramme pourrait nous donner une idée plus proche de la vraie population). Si l'hypothèse B est vraie, alors les samples pourraient être un reflèxe de la population, car ils nous indiquent que le verbe est accentué dans la deuxième syllabe et le nom, dans la première. 
+
+La diffèrence entre dictionnaires pourrait être due à des raisons historiques (le mot change d'accentuation dans diffèrents périodes de l'histoire), ainsi que géographiques (le mot change d'accentuation dans diffèrents régions)
+
+Histogrammes I et II
+
+```{r}
+ggplot2::ggplot(stressshift::stress_shift_permit, ggplot2::aes(x=Category, fill=Syllable)) +
+ggplot2::geom_bar(position="dodge", colour="black") + ggplot2::scale_fill_brewer(palette="Set3")
+```
+
+Histogramme III
+
+```{r}
+ggplot2::ggplot(stressshift::stress_shift_permit, ggplot2::aes(x=0, fill=Syllable)) + ggplot2::geom_bar(position="dodge", colour="black") + ggplot2::scale_fill_brewer(palette="Set3") +
+ggplot2::xlab("") +
+ggplot2::theme(axis.text.x=ggplot2::element_blank(), axis.ticks.x=ggplot2::element_blank()) +
+ggplot2::xlim(c(-1,1))
+```
+
+
+b. Il me semble que l'hypothèse B est plus probable : permit nom et permit verbe ne sont pas égales en termes d'accentuation. Si l'on regarde les deux premiers histogrammes, on constate des patrons complètement différent pour chaque type de mot (35 individus de 46 ont l'accent dans la première syllabe pour le nom et seulement 1/46 pour le verbe). Les samples pourraient être extraits d'une population comme la reflètée en III, mais c'est très peu probable.
 
