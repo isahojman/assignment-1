@@ -49,7 +49,7 @@ ggplot2::geom_histogram(bins=5, colour="black", fill="lightgrey")
 ##Exercise 3
 
 
-a. Les histogrammes représentent pour les 50 individus qui conforment la population de chaque espèce de Iris (versicolor et virginica), grouppés selon la largeur du Sepal. Par exemple, dans le deuxième histogramme (II), on trouve 12 individus de la population des virginica avec une sepal width de 3.0 et aucun avec 2.0. Dans la population de versicolor (histogramme I), on trouve 1 indivuds avec 2.0 et 8 avec 3.0.
+a. Les histogrammes représentent pour les 50 individus qui conforment la population de chaque espèce de Iris (versicolor et virginica), grouppés selon la largeur du Sepal. Par exemple, dans le deuxième histogramme (II), on trouve 12 individus de la population des virginica avec une sepal width de 3.0 et aucun avec 2.0. Dans la population de versicolor (histogramme I), on trouve 1 individus avec 2.0 et 8 avec 3.0.
 
 
 ```{r}
@@ -70,16 +70,16 @@ b. Si l'on somme les bins de 2.0, 2.2, 2.9 et 3.0 des deux espèces, on a 1+0=1,
 ggplot2::ggplot(iris_groups23, ggplot2::aes(x=Sepal.Width)) + ggplot2::geom_histogram(colour="black", fill="lightgrey", binwidth=0.1)
 ```
 
-c. L'hypothèse A postule que virginica et versicolor sont égales en termes de sepal width. Les populations desquelles les samples sont extraites ont une sepal width égale. C'est à dire que si on prend une sample diffèrente ou plus large (plus réprésentaive) de n'importe quelle des deux espèces on obtiendrait un histogramme similaire au III. I et II sont diffèrents parce que les samples ne son pas représentatives de la population.
-L'hypothèse B postule que les deux espèces sont différentes en termes de sepal width. Les populations desquelles les samples sont extraites ont une sepal width différente. Si l'on prend une sample diffèrente pour chacune, on obtiendrait un histogramme similaire à celui de la propre espèce (I ou II) si les samples actuelles sont réprésentatives. III ne répresenterait plus que la somme de I et II.
+c. L'hypothèse A postule que virginica et versicolor sont égales en termes de sepal width. Les populations desquelles les samples sont extraites auriont une sepal width égale. C'est à dire que si on prend un sample diffèrent ou plus large (plus réprésentatif) de n'importe quelle des deux espèces on obtiendrait un histogramme similaire au III. I et II sont diffèrents parce que les samples ne son pas représentatives de la population.
+L'hypothèse B postule que les deux espèces sont différentes en termes de sepal width. Les populations desquelles les samples sont extraits auriont une sepal width différente. Si l'on prend une sample diffèrente pour chacune, on obtiendrait un histogramme similaire à celui de la propre espèce (I ou II) si les samples actuels sont réprésentatifs. III ne répresenterait plus que la somme de I et II.
 
-d. On pourrait postuler que l'hypothèse A est correcte. Si l'on regarde les histogrammes I et II, on peut constater une certaine similarité entre les valeurs où se concentrent las plupart des individus (entre 2.5 et 3.3) et la plus petite partie (le reste). On pourrait penser que le fait qu'il y ait uniquement 2 individus avec 2.9 dans II n'est pas représentatif de la population. L'histogramme III, qui représente la somme de I et II, a une forme similaire à celle d'une distribution normale, ce qui peut nous indiquer qu'effectivement les deux espèces sont égales en termes de sepal width.
+d. On pourrait postuler que l'hypothèse A est correcte. Si l'on regarde les histogrammes I et II, on peut constater une certaine similarité entre les valeurs où se concentrent las plupart des individus (entre 2.5 et 3.3) et la plus petite partie des individus (le reste). On pourrait penser que le fait qu'il y ait uniquement 2 individus avec 2.9 dans II n'est pas représentatif de la population. L'histogramme III, qui représente la somme de I et II, a une forme similaire aux autres deux et à celle d'une distribution normale, ce qui peut nous indiquer qu'effectivement les deux espèces sont égales en termes de sepal width.
 
 ##Exercise 4
 
-a. Les histogrammes ne nous permettent pas de dire laquelle des deux hypothèses est vraie car ça pourrait être le cas que les samples qu'on a obtenu pour permit nom ou permit verbe ne soient pas représentatives de la population totale. L'hypothèse A postule que le verbe et le nom sont égales par rapport à leur accent : si c'est le cas, les histogrammes des samples qu'on a (composée de 46 individus chacune) ne représentent pas correctement la population; le troisième histogramme pourrait nous donner une idée plus proche de la vraie population). Si l'hypothèse B est vraie, alors les samples pourraient être un reflèxe de la population, car ils nous indiquent que le verbe est accentué dans la deuxième syllabe et le nom, dans la première. 
+a. Les histogrammes ne nous permettent pas de dire laquelle des deux hypothèses est vraie car ça pourrait être le cas que les samples qu'on a obtenu pour permit nom ou permit verbe ne soient pas représentatifs de la population totale. L'hypothèse A postule que le verbe et le nom sont égales par rapport à leur accent : si c'est le cas, les histogrammes des samples qu'on a (composée de 46 individus chacune) ne représentent pas correctement la population; le troisième histogramme pourrait nous donner une idée plus proche de la vraie population). Si l'hypothèse B est vraie, alors les samples pourraient être un reflèxe de la population, car ils nous indiquent que le verbe est accentué dans la deuxième syllabe et le nom, dans la première. 
 
-La diffèrence entre dictionnaires pourrait être due à des raisons historiques (le mot change d'accentuation dans diffèrents périodes de l'histoire), ainsi que géographiques (le mot change d'accentuation dans diffèrents régions)
+La diffèrence entre dictionnaires pourrait être due à des raisons historiques (le mot change d'accentuation dans diffèrents périodes de l'histoire), ainsi que géographiques (le mot change d'accentuation dans diffèrents régions).
 
 Histogrammes I et II
 
@@ -98,7 +98,7 @@ ggplot2::xlim(c(-1,1))
 ```
 
 
-b. Il me semble que l'hypothèse B est plus probable : permit nom et permit verbe ne sont pas égales en termes d'accentuation. Si l'on regarde les deux premiers histogrammes, on constate des patrons complètement différent pour chaque type de mot (35 individus de 46 ont l'accent dans la première syllabe pour le nom et seulement 1/46 pour le verbe). Les samples pourraient être extraits d'une population comme la reflètée en III, mais c'est très peu probable.
+b. Il me semble que l'hypothèse B est plus probable : permit nom et permit verbe ne sont pas égales en termes d'accentuation. Si l'on regarde les deux premiers histogrammes, on constate des patrons complètement différents pour chaque type de mot (35 individus de 46 ont l'accent dans la première syllabe pour le nom et seulement 1/46 pour le verbe). Les samples pourraient être extraits d'une population comme la reflètée en III, mais c'est très peu probable.
 
 ##Exercise 5
 
@@ -118,11 +118,11 @@ ggplot2::facet_grid(SemanticClass ~ .)
 ```
 
 
-a. Il y a deux types de calcule dans cette data : d'une part, on compte la fréquence de 198 verbs de chaque groupe dans un corpus; d'une autre part, on compte combien de verbes ont une fréquence de 0, 1, etc. pour remplir l'histogramme. 
+a. Il y a deux types de calcule dans cette data : d'une part, on compte la fréquence de 198 verbs de chaque groupe dans un corpus; d'une autre part, on compte combien de ces verbes ont une fréquence de 0, 1, etc. pour remplir l'histogramme. 
 
-b. Cette question n'est pas répondu par les histogrammes car on travaille sur des samples qui peuvent représenter ou pas la poblation de laquelle elles sont extraites. 
+b. Cette question n'est pas répondu par les histogrammes car on travaille sur des samples qui peuvent représenter ou pas la population de laquelle elles sont extraits. 
 
-Si l'hypothèse A était vraie, cela voudrait dire que les verbes opaques et transparent ne présentent pas de différences à niveau de leur fréquence : avec une sample suffisament représentative de chaque groupe on trouveras des patrons très similaires, ce qui n'est pas le cas pour les histogrammes qu'on a, soit parce que l'hypopthèse est fausse, soit parce que les samples ne sont pas suffisament représentatifs.
+Si l'hypothèse A était vraie, cela voudrait dire que les verbes opaques et transparents ne présentent pas de différences à niveau de leur fréquence : avec une sample suffisament représentative de chaque groupe on trouveras des patrons très similaires, ce qui n'est pas le cas pour les histogrammes qu'on a, soit parce que l'hypopthèse est fausse, soit parce que les samples ne sont pas suffisament représentatifs.
 
 Si l'hypothèse B était vraie, les deux groupes de verbes ne seraient pas égales par rapport à leur fréquence : les histogrammes qu'on a pourraient être représentatifs de la population delaquelle chaque sample est extrait. Les patrons des deux histogrammes ne sont pas égaux, soit parce que les samples sont représentatifs de la population, soit parce que l'hypothèse est fausse et les samples ne sont pas représentatifs.
 
